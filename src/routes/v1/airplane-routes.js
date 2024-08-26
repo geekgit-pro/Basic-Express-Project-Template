@@ -17,6 +17,10 @@ router.
 router.
     get('/:id', AirplaneController.getAirplane);
 
+
+router.
+    delete('/:id', AirplaneController.destroyAirplane);
+
 //console.log('Inside src/routes/v1/airplane-routes after making router.post(/) i.e calling controller');
 
 module.exports = router;
