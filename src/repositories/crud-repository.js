@@ -1,6 +1,7 @@
-
+const { StatusCodes } = require('http-status-codes');
 const { where } = require('sequelize');
 const { Logger } = require('../config');
+const AppError = require('../utils/errors/app-error');
 
 class CrudRepository {
     constructor(model) {
@@ -54,6 +55,9 @@ class CrudRepository {
         //     throw error;
         // }
         const response  = await this.model.findByPk(data);
+        if(!response) {
+            throw new AppError('Could not fetch airplane data', StatusCodes.NOT_FOUND);
+        }
         return response;
 
     }

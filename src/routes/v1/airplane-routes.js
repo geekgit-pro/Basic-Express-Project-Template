@@ -12,6 +12,11 @@ router.
 
 router.
     get('/', AirplaneController.getAirplanes);
+
+
+router.
+    get('/:id', AirplaneController.getAirplane);
+
 //console.log('Inside src/routes/v1/airplane-routes after making router.post(/) i.e calling controller');
 
 module.exports = router;
