@@ -21,6 +21,11 @@ router.
 router.
     delete('/:id', AirplaneController.destroyAirplane);
 
+router.
+    patch('/:id', 
+        //AirplaneMiddlewares.validateCreateRequest,
+        AirplaneController.updateAirplane);
+
 //console.log('Inside src/routes/v1/airplane-routes after making router.post(/) i.e calling controller');
 
 module.exports = router;

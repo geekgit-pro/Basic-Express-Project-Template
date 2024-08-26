@@ -6,6 +6,7 @@ const { StatusCodes } = require('http-status-codes');
 const airplaneRepository = new AirplaneRepository();
 
 async function createAirplane(data) {
+    //console.log(req.body);
     try {
         //console.log('Inside createAirplane of service before calling create function of repository');
         const airplane = await airplaneRepository.create(data);
@@ -40,6 +41,7 @@ async function getAirplanes() {
 
 
 async function getAirplane(id) {
+    //console.log(req.body);
     try {
         const airplane = await airplaneRepository.get(id);
         return airplane;
@@ -69,10 +71,36 @@ async function destroyAirplane(id) {
 }
 
 
+async function updateAirplane(id, data) {
+    try {
+        const airplane = await airplaneRepository.update(id, data);
+        return airplane;
+    } catch (error) {
+        console.log(error);
+        if(error.statusCode == StatusCodes.NOT_FOUND) {
+            throw new AppError('Requested airplane to update not found', error.statusCode);
+        }
+        
+        if(error.name == 'SequelizeValidationError') {
+            let explanation = [];
+            error.errors.forEach((err) => {
+                explanation.push(err.message);
+
+                });
+                console.log(explanation);
+            throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+        }
+
+        throw new AppError('Cannot update Airplane', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }

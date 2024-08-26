@@ -8,6 +8,7 @@ const { ErrorResponse, SuccessResponse } = require('../utils/common');
 
 async function createAirplane(req, res) {
     try {
+        console.log("inside controller");
         //console.log('Inside createAirplane before calling createAirplane of service');
         console.log(req.body);
         const airplane = await AirplaneService.createAirplane({
@@ -26,6 +27,7 @@ async function createAirplane(req, res) {
 } catch (error) { 
         //console.log(`hi${ErrorResponse}`);                                           
         ErrorResponse.error = error; 
+        //const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
         //console.log(ErrorResponse.error);                      //success: false                  
         return res                                          //message: 'Something went wrong...airplane',
                 .status(error.statusCode)  //data: {},
@@ -94,10 +96,34 @@ async function destroyAirplane(req, res) {
 }
 
 
+async function updateAirplane(req, res) {
+    try {
+        //console.log(req.body);
+        const airplane = await AirplaneService.updateAirplane(req.params.id, {
+            modelNumber: req.body.modelNumber,
+            capacity: req.body.capacity
+        });
+        SuccessResponse.data = airplane;
+        return res                                          
+                .status(StatusCodes.OK)               
+                .json(SuccessResponse);
+                                     
+                                                            
+} catch (error) {                                           
+        ErrorResponse.error = error; 
+        return res                                          
+                .status(error.statusCode)
+                .json(ErrorResponse);                       
+    
+    }
+}
+
+
 
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }
