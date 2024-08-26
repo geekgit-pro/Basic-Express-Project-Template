@@ -5,10 +5,12 @@ const router = express.Router();
 
 const { InfoController } = require('../../controllers');
 const airplaneRoutes = require('./airplane-routes');
+const cityRoutes = require('./city-routes')
 
 //console.log('Inside src/routes/v1/index.js befor router.use(/airplanes)');
 
 router.use('/airplanes', airplaneRoutes);
+router.use('/cities', cityRoutes );
 
 //console.log('Inside src/routes/v1/index.js after router.use(/airplanes) for registering airplane routes');
 
