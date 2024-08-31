@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'cityId',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
-      })
+      });
     }
   }
   Airport.init({
@@ -36,9 +36,11 @@ module.exports = (sequelize, DataTypes) => {
     cityId: {
       type: DataTypes.INTEGER,
       allowNull: false
-  }, 
+  }
+}, {
     sequelize,
     modelName: 'Airport',
-  });
+  }
+  );
   return Airport;
 };
