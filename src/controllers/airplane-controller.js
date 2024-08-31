@@ -99,7 +99,7 @@ async function destroyAirplane(req, res) {
 async function updateAirplane(req, res) {
     try {
         //console.log(req.body);
-        const airplane = await AirplaneService.updateAirplane(req.params.id, {
+        const airplane = await AirplaneService.updateAirplane((req.params.id), {
             modelNumber: req.body.modelNumber,
             capacity: req.body.capacity
         });
@@ -113,7 +113,7 @@ async function updateAirplane(req, res) {
         ErrorResponse.error = error; 
         return res                                          
                 .status(error.statusCode)
-                .json(ErrorResponse);                       
+                .json(ErrorResponse);                    
     
     }
 }
