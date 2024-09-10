@@ -18,7 +18,7 @@ function validateCreateRequest(req, res, next) {
 
     if(!req.body.code) {
         ErrorResponse.message = 'Something went wrong while creating airport';
-        ErrorResponse.error = new AppError(['Code not found '], StatusCodes.BAD_REQUEST);
+        ErrorResponse.error = new AppError(['Airport Code not found '], StatusCodes.BAD_REQUEST);
         return res
                 .status(StatusCodes.BAD_REQUEST)    
                 .json(ErrorResponse);               

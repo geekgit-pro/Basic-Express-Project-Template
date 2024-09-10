@@ -19,7 +19,7 @@ class CrudRepository {
         //     throw error;
         // }
         const response = await this.model.create(data);
-        return response
+        return response;
 
         
 

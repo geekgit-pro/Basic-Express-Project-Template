@@ -68,6 +68,31 @@ async function destroyAirport(id) {
 }
 
 
+async function updateAirport(id, data) {
+    try {
+        const airport = await airportRepository.update(id, data);
+        return airport;
+    } catch (error) {
+        console.log(error);
+        if(error.statusCode == StatusCodes.NOT_FOUND) {
+            throw new AppError('Requested airport to update not found', error.statusCode);
+        }
+        
+        if(error.name == 'SequelizeValidationError') {
+            let explanation = [];
+            error.errors.forEach((err) => {
+                explanation.push(err.message);
+
+                });
+                console.log(explanation);
+            throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+        }
+
+        throw new AppError('Cannot update Airport', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 // async function updateAirplane(id, data) {
 //     try {
 //         const airplane = await airplaneRepository.update(id, data);
@@ -99,5 +124,5 @@ module.exports = {
     getAirports,
     getAirport,
     destroyAirport,
-    //updateAirplane
+    updateAirport
 }

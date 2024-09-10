@@ -25,5 +25,10 @@ router.
 //         //AirplaneMiddlewares.validateCreateRequest,
 //         AirplaneController.updateAirplane);
 
+router.
+    patch('/:id', 
+        //AirplaneMiddlewares.validateCreateRequest,
+        AirportController.updateAirport);
+
 
 module.exports = router;
