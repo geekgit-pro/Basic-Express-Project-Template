@@ -86,17 +86,21 @@ async function getAllFlights(query) {
     }
 }
 
-// async function getAirports() {
-//     try {
-//         const airports = await airportRepository.getAll();
-//         return airports;
-//     } catch (error) {
-//         console.log(error);
-//         throw new AppError('Cannot fetch Airports', StatusCodes.INTERNAL_SERVER_ERROR);
 
-//     }
+async function getFlight(id) {
+    try {
+        const flight = await flightRepository.get(id);
+        return flight;
+    } catch (error) {
+        console.log(error);
+        if(error.statusCode == StatusCodes.NOT_FOUND) {
+            throw new AppError('Requested flight not found', error.statusCode);
+        }
+        throw new AppError('Cannot fetch Flights', StatusCodes.INTERNAL_SERVER_ERROR);
+
+    }
     
-// }
+}
 
 
 
@@ -160,7 +164,8 @@ async function destroyFlight(id) {
 module.exports = {
     createFlight,
     getAllFlights,
-    destroyFlight
+    destroyFlight,
+    getFlight
     //getAirports,
     //getAirport,
     //destroyAirport,
