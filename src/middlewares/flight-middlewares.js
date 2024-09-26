@@ -83,6 +83,32 @@ function validateCreateRequest(req, res, next) {
         
 }
 
+function validateUpdateSeatsRequest(req, res, next) {
+    console.log(req.body);
+    console.log(req.params.id);
+ 
+    if(!req.params.id) {
+        ErrorResponse.message = 'Something went wrong while updating seats';
+        ErrorResponse.error = new AppError(['flightId of flight for seat update not foundin request '], StatusCodes.BAD_REQUEST);
+        return res
+                .status(StatusCodes.BAD_REQUEST)    
+                .json(ErrorResponse);               
+    }
+
+    if(!req.body.seats) {
+        ErrorResponse.message = 'Something went wrong while creating airport';
+        ErrorResponse.error = new AppError(['seats of flight for seat update not found in request'], StatusCodes.BAD_REQUEST);
+        return res
+                .status(StatusCodes.BAD_REQUEST)    
+                .json(ErrorResponse);               
+    }
+
+    next();
+
+}
+
+
 module.exports = {
-    validateCreateRequest
+    validateCreateRequest,
+    validateUpdateSeatsRequest
 }
