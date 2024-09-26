@@ -15,6 +15,12 @@ router.
 
 
 router.
+    get('/:id',
+        FlightController.getFlight);
+    
+
+
+router.
     delete('/:id',
         FlightController.destroyFlight);
 

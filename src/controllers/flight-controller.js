@@ -46,44 +46,24 @@ async function getAllFlights(req, res) {
     }
 }
 
-// async function getAirports(req, res) {
-//     try {
-//         const airports = await AirportService.getAirports();
-//         SuccessResponse.data = airports;
-//         return res
-//                 .status(StatusCodes.OK)
-//                 .json(SuccessResponse);
+async function getFlight(req, res) {
+    try {
+        const flight = await FlightService.getFlight(req.params.id);
+        SuccessResponse.data = flight;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
                 
 
-//     } catch (error) {
-//         console.log(error);
-//         ErrorResponse.error = error;
-//         return res
-//                 .status(error.statusCode)
-//                 .json(ErrorResponse);
-//     }
+    } catch (error) {
+        console.log(error);
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
 
-// }
-
-
-// async function getAirport(req, res) {
-//     try {
-//         const airport = await AirportService.getAirport(req.params.id);
-//         SuccessResponse.data = airport;
-//         return res
-//                 .status(StatusCodes.OK)
-//                 .json(SuccessResponse);
-                
-
-//     } catch (error) {
-//         console.log(error);
-//         ErrorResponse.error = error;
-//         return res
-//                 .status(error.statusCode)
-//                 .json(ErrorResponse);
-//     }
-
-// }
+}
 
 
 async function destroyFlight(req, res) {
@@ -106,34 +86,14 @@ async function destroyFlight(req, res) {
 }
 
 
-// async function updateAirplane(req, res) {
-//     try {
-//         //console.log(req.body);
-//         const airplane = await AirplaneService.updateAirplane((req.params.id), {
-//             modelNumber: req.body.modelNumber,
-//             capacity: req.body.capacity
-//         });
-//         SuccessResponse.data = airplane;
-//         return res                                          
-//                 .status(StatusCodes.OK)               
-//                 .json(SuccessResponse);
-                                     
-                                                            
-// } catch (error) {                                           
-//         ErrorResponse.error = error; 
-//         return res                                          
-//                 .status(error.statusCode)
-//                 .json(ErrorResponse);                    
-    
-//     }
-// }
-
 
 
 module.exports = {
     createFlight,
     getAllFlights,
-    destroyFlight
+    destroyFlight,
+    getFlight
+   
     //getAirports,
     //getAirport,
     //destroyAirport,
